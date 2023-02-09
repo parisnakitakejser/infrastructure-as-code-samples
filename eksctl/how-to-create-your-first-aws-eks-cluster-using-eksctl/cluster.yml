@@ -1,0 +1,28 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: basic-cluster
+  region: eu-west-1
+
+managedNodeGroups:
+  - name: ng-x86
+    instanceType: m5.large
+    labels: { role: web }
+    desiredCapacity: 2
+    minSize: 2
+    maxSize: 10
+    volumeSize: 80
+
+  - name: ng-arm
+    instanceType: m6g.medium
+    labels: { role: api }
+    desiredCapacity: 2
+    minSize: 2
+    maxSize: 10
+    volumeSize: 100
+
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["*"]
+    logRetentionInDays: 7
