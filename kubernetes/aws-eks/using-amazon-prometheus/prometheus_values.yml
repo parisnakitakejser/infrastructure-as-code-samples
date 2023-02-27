@@ -1,0 +1,14 @@
+serviceAccounts:
+  server:
+    name: "amp-iamproxy-ingest-service-account"
+    annotations:
+      eks.amazonaws.com/role-arn: "{iam-role}"
+server:
+  remoteWrite:
+    - url: { ingres-url }
+      sigv4:
+        region: eu-west-1
+      queue_config:
+        max_samples_per_send: 1000
+        max_shards: 200
+        capacity: 2500
