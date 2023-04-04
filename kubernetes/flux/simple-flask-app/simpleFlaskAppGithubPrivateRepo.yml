@@ -1,0 +1,41 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: flask-app
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: test-github-private-repo
+  namespace: flask-app
+spec:
+  interval: 5m0s
+  url: https://<url-to-github-repo>
+  secretRef:
+    name: basic-access-auth
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: test-github-kustmoization
+  namespace: flask-app
+spec:
+  interval: 5m
+  targetNamespace: flask-app
+  sourceRef:
+    kind: GitRepository
+    name: test-github-private-repo
+  path: "./deployment/"
+  prune: true
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: basic-access-auth
+  namespace: flask-app
+type: Opaque
+data:
+  username: <base64>
+  password: <base64>
