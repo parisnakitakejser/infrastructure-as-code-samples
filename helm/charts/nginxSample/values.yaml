@@ -1,0 +1,28 @@
+# Default values for nginx-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+fullname: nginx-sample
+replicaCount: 1
+
+podAnnotations: {}
+labels:
+  app: nginx-sample-app
+
+selectorLabels:
+  app: nginx-sample
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: false
+  replicaCount: 1
