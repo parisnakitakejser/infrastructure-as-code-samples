@@ -1,0 +1,16 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nginx-sample-test
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: ./helm/charts/nginxSample
+      sourceRef:
+        kind: GitRepository
+        name: pnk-iac-repo
+  values:
+    autoscaling:
+      enabled: true
+    replicaCount: 2
