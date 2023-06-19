@@ -21,7 +21,7 @@ spec:
         {{- toYaml .Values.selectorLabels | nindent 8 }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Values.fullname }}-app
           image: "nginx:latest"
           ports:
             - name: http
